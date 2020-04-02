@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To do list </title>
+    <script defer async src="script.js"></script>
+    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+    <link rel="stylesheet" href="bootstrap.css">
+
+</head>
+
+<body>
+
+    <h1>TO DO LIST</h1>
+
+    <div class="container ">
+        <div class="row">
+            <div class="col-md-12">
+                <p><b>Task</b></p>
+            </div>
+            <div class="col-md-10" style="float:left;">
+
+                <input class="form-control" id="inpNewTask" placeholder="Task">
+            </div>
+
+            <div class="col-md-2" style="float:left;">
+                <button class="btn btn-primary " onclick="addTask();">Add</button>
+                <button class="btn btn-danger " onclick=" deleteTask(); ">Clear</button>
+            </div>
+        </div>
+        <br>
+        <div class="row" id="taskListContainer">
+
+            <ul class="list-group" id="ulTaskList">
+                <li class="list-group-item disabled">Tasks List (click on a task to mark it done)</li>
+            </ul>
+        </div>
+
+    </div>
+
+</body>
+
+</html>

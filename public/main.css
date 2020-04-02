@@ -1,0 +1,16 @@
+.strike {
+    text-decoration: line-through;
+}
+
+h1 {
+    text-align: center;
+}
+
+#taskListContainer {
+    margin-left: 1px;
+    width: 100%;
+}
+
+.list-group {
+    width: 100%;
+}
