@@ -2,41 +2,42 @@ fillList()
 
 function fillList() {
     let taskList = document.getElementById('ulTaskList')
-    let toDoList = getTodos();
-    console.log(toDoList)
+    let toDoList = getTodos()
+
     const todos = getTodos()
     Promise.resolve(todos).then(function(value) {
         for (let i = 0; i < value.length; i++) {
-            let listItem = document.createElement("li");
-            listItem.classList.add("list-group-item");
+            let listItem = document.createElement("li")
+            listItem.classList.add("list-group-item")
             listItem.onclick = function addStrike() {
 
-                this.classList.toggle("strike");
+                this.classList.toggle("strike")
 
             }
-            listItem.textContent = value[i].task;
-            taskList.appendChild(listItem);
-            console.log(value[i].task)
+            listItem.setAttribute("id", value[i].id)
+            listItem.textContent = value[i].task
+            taskList.appendChild(listItem)
+
         }
-    });
+    })
 
 }
 
 function addTask() {
-    let inpNewTask = document.getElementById("inpNewTask");
-    let ulTaskList = document.getElementById("ulTaskList");
+    let inpNewTask = document.getElementById("inpNewTask")
+    let ulTaskList = document.getElementById("ulTaskList")
     if (inpNewTask.value != "") {
-        let listItem = document.createElement("li");
-        listItem.classList.add("list-group-item");
+        let listItem = document.createElement("li")
+        listItem.classList.add("list-group-item")
         listItem.onclick = function addStrike() {
 
-            this.classList.toggle("strike");
+            this.classList.toggle("strike")
 
         }
-        listItem.textContent = inpNewTask.value;
-        ulTaskList.appendChild(listItem);
+        listItem.textContent = inpNewTask.value
+        ulTaskList.appendChild(listItem)
         addNewTodoJson(inpNewTask.value, false)
-        inpNewTask.value = "";
+        inpNewTask.value = ""
 
     }
 
@@ -69,8 +70,22 @@ async function addNewTodoJson(task, done) {
         },
         body: JSON.stringify({ task, done, due: '2020-04-05' })
     })
-    Promise.resolve(resp).then(function(value) {
-        console.log("response value : ")
-        console.log(value)
+
+}
+
+async function deleteTaskFromList(id) {
+    const resp = await fetch('/todos/' + id, {
+        method: 'DELETE',
     })
+
+}
+
+
+function deleteTask() {
+    const ulTaskList = document.getElementById("ulTaskList");
+    let doneTasks = document.getElementsByClassName("strike");
+    while (doneTasks[0]) {
+        deleteTaskFromList(doneTasks[0].getAttribute("id"))
+        ulTaskList.removeChild(doneTasks[0]);
+    }
 }

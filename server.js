@@ -64,4 +64,52 @@ app.post('/todos', (req, res) => {
     res.status(201).send({ success: 'New task added', id: todos.length })
 })
 
+app.put('/todos', (req, res) => {
+    if (isNaN(Number(req.body.id))) {
+        return res.status(400).send({
+            error: 'todo id must be an integer'
+        })
+    }
+    const idx = req.body.id - 1
+
+    if (!todos[idx]) {
+        return res.status(404).send({
+            error: 'No todo found with id = ' + req.params.id
+        })
+    }
+    if (typeof req.body.task !== 'string') {
+        return res.status(400).send({ error: 'Task name not provided' })
+    }
+    if (req.body.done === 'true') {
+        req.body.done = true
+    } else {
+        req.body.done = false
+    }
+    todos[idx].task = req.body.task
+    todos[idx].done = req.body.done
+    todos[idx].due = req.body.due
+
+
+    res.status(201).send({ success: 'task details updated' })
+})
+
+
+app.delete('/todos/:id', (req, res) => {
+    if (isNaN(Number(req.params.id))) {
+        return res.status(400).send({
+            error: 'todo id must be an integer'
+        })
+    }
+    const idx = req.params.id - 1
+
+    if (!todos[idx]) {
+        return res.status(404).send({
+            error: 'No todo found with id = ' + req.params.id
+        })
+    }
+    todos.splice(idx, 1);
+
+    res.status(201).send({ success: 'Task with id : ' + idx + 1 + ' deleted' })
+})
+
 app.listen(6543)
