@@ -43,15 +43,12 @@ function addTask() {
 
 
 }
-
-
 async function getTodos() {
     const resp = await fetch('/todos', { method: 'GET' })
     const todos = await resp.json()
 
     return todos
 }
-
 async function addNewTodoUrlEncoded(task, done, due) {
     const resp = await fetch('/todos', {
         method: 'POST',
