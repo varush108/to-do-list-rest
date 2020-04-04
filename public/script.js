@@ -1,25 +1,25 @@
-fillList()
+getTodos().then(function(value) {
+    fillList(value)
+})
 
-function fillList() {
+
+function fillList(todos) {
     let taskList = document.getElementById('ulTaskList')
-    let toDoList = getTodos()
 
-    const todos = getTodos()
-    Promise.resolve(todos).then(function(value) {
-        for (let i = 0; i < value.length; i++) {
-            let listItem = document.createElement("li")
-            listItem.classList.add("list-group-item")
-            listItem.onclick = function addStrike() {
+    for (let i = 0; i < todos.length; i++) {
+        let listItem = document.createElement("li")
+        listItem.classList.add("list-group-item")
+        listItem.onclick = function addStrike() {
 
-                this.classList.toggle("strike")
-
-            }
-            listItem.setAttribute("id", value[i].id)
-            listItem.textContent = value[i].task
-            taskList.appendChild(listItem)
+            this.classList.toggle("strike")
 
         }
-    })
+        listItem.setAttribute("id", todos[i].id)
+        listItem.textContent = todos[i].task
+        taskList.appendChild(listItem)
+
+    }
+
 
 }
 
